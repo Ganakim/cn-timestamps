@@ -1,0 +1,25 @@
+form{
+  label{
+    white-space: nowrap;
+  }
+  .form-check{
+    margin-bottom: 1rem;
+    padding-left: 0;
+  }
+  .form-list:not(.sub) > form:not(.justify-content-start){
+    @extend .d-flex;
+    @extend .justify-content-between;
+    &:nth-child(even){
+      background-color: #eeeeee;
+    }
+  }
+  form.align-items-center.align-items-start{
+    align-items: center!important;
+  }
+  .me-2.me-0{
+    @extend .me-0 !optional;
+  }
+  .me-2.me-1{
+    @extend .me-1 !optional;
+  }
+}

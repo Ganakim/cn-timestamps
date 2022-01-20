@@ -1,0 +1,31 @@
+<head>
+  <title>CodeNinjas - Progress Reports</title>
+  <script src="https://kit.fontawesome.com/e5cefe8111.js" crossorigin="anonymous"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js" crossorigin="anonymous"></script>
+  <meteor-bundled-js/>
+</head>
+
+<body>
+  <div id="SiteWrapper" class="d-flex flex-column w-100 h-100 text-dark">
+    <div id="PageWrapper" class="d-flex flex-column w-100 h-100">
+      {{>home}}
+    </div>
+    {{#if modal}}
+        <div id="Modal" class="l-0 t-0 r-0 b-0 bg-modal d-flex justify-content-center align-items-center position-fixed">
+          <div class="card">
+            <div class="card-body">
+              {{>form modal.form}}
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+              {{#each modal.actions}}
+                <div class="btn btn-{{style}} modalAction ms-2">{{text}}</div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{modal.modalFocus}}
+    {{/if}}
+  </div>
+</body>

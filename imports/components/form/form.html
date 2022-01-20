@@ -1,0 +1,80 @@
+<template name="form">
+  <form id="{{id}}" class="d-flex align-items-start {{classes.form}}">
+    {{#each elements}}
+      {{#if (logic "!" type)}}<!-- Label -->
+        <div class="form-group d-flex align-items-center {{classes.group}}">
+          <label id="{{id}}" class="mb-0 me-1 {{classes.element}}">{{label}}</label>
+        </div>
+      {{/if}}
+
+      {{#if logic type "==" "color"}}
+        <div class="form-group d-flex align-items-center {{classes.group}}">
+          <label for="{{id}}" class="mb-0 me-1">{{label}}</label>
+          <input id="{{id}}" type="color" class="{{classes.element}}" value="{{value}}">
+        </div>
+      {{/if}}
+
+      {{#if (logic type "==" "dropdown")}}<!-- Dropdown -->
+        <div class="form-group d-flex align-items-center {{classes.group}}">
+          <label for="{{id}}" class="mb-0 me-1">{{label}}</label>
+          <select id="{{id}}" class="form-control {{classes.element}}">
+            {{#if logic (logic selected "!==" undefined) "&&" notAnOption}}
+              <option disabled hidden selected>{{selected}}</option>
+            {{/if}}
+            {{#each options}}
+              {{#if (logic value "==" ../selected)}}
+                <option selected value="{{value}}">{{text}}</option>
+              {{else}}
+                <option value="{{value}}">{{text}}</option>
+              {{/if}}
+            {{/each}}
+          </select>
+        </div>
+      {{/if}}
+                
+      {{#if (logic type "in" (join "[]" "text" "email" "password" "number"))}}<!-- Text, email, password -->
+        <div class="form-group d-flex align-items-center {{classes.group}}">
+          <label for="{{id}}" class="mb-0 me-1">{{label}}</label>
+          <input id="{{id}}" class="form-control {{classes.element}}" type="{{type}}" placeholder="{{placeholder}}" value="{{value}}">
+        </div>
+      {{/if}}
+                
+      {{#if (logic type "==" "textarea")}}<!-- Textarea -->
+        <div class="form-group d-flex {{classes.group}}">
+          <label for="{{id}}" class="mb-0 me-1">{{label}}</label>
+          <textarea id="{{id}}" class="form-control {{classes.element}}">{{value}}</textarea>
+        </div>
+      {{/if}}
+      
+      {{#if (logic type "==" "checkbox")}}<!-- Checkbox -->
+        <div class="form-check d-flex {{classes.group}}">
+          <label for="{{id}}" class="form-check-label me-1">{{label}}</label>
+          <input id="{{id}}" class="form-check-input {{classes.element}} ms-0 ps-0" name="{{group}}" type="checkbox" checked="{{value}}" disabled="{{disabled}}">
+        </div>
+      {{/if}}
+      
+      {{#if (logic type "==" "icon")}}<!-- Icon -->
+        <div class="form-group d-flex align-items-center {{classes.group}}">
+          <i id="{{id}}" class="{{icon}} {{classes.element}}"></i>
+        </div>
+      {{/if}}
+      
+      {{#if (logic type "==" "button")}}<!-- Button -->
+        <div class="form-group d-flex {{classes.group}}">
+          <div id="{{id}}" class="btn btn-{{style}} {{classes.element}}" >{{text}}</div>
+          {{#if false}}<!-- style="display:{{#if visible}}block{{else}}none{{/if}};" -->{{/if}}
+        </div>
+      {{/if}}
+
+      {{#if (logic type "==" "list")}}<!-- List, Mini form -->
+        <div class="form-group d-flex {{classes.group}}">
+          <label class="mb-0 me-1">{{label}}</label>
+          <div class="form-group d-flex flex-column form-list w-100 mb-0 {{classes.element}}">
+              {{>form this}}
+          </div>
+        </div>
+      {{/if}}
+      
+    {{/each}}
+  </form>
+</template>

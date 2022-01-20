@@ -1,0 +1,27 @@
+{
+  "name": "cnReports2",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "refresh": "meteor reset && npm run start",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.15.4",
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.2",
+    "chart.js": "^3.4.0",
+    "chromedriver": "^97.0.0",
+    "jquery": "^3.6.0",
+    "jquery-ui": "^1.12.1",
+    "meteor-node-stubs": "^1.1.0",
+    "mongodb": "^3.6.9",
+    "selenium-webdriver": "^4.1.1"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<template name="home">
+  <div id="Home">
+    {{#if get "needsLogin"}}
+      <select id="D">
+        <option selected hidden disabled>Please select a dojo</option>
+        <option value="cn-ut-south-jordan">South Jordan</option>
+        <option value="cn-ut-lehi">Lehi</option>
+      </select>
+      <input type="text" id="U" placeholder="GDP Username">
+      <input type="password" id="P" placeholder="GDP Password">
+      <div id="GetTimestamps" class="btn btn-primary">Go</div>
+      <br>
+      {{get "loginErrors"}}
+    {{else}}
+      {{#if get "loading"}}
+        Loading... This may take a while
+      {{else}}
+        <div class="d-flex align-items-center m-2">
+          <b>Seach:</b>
+          <input type="text" id="TimestampSearch" class="mx-2">
+          <div id="Refresh" class="btn btn-primary"><i class="fad fa-sync-alt"></i></div>
+        </div>
+        <div class="d-flex flex-wrap h-100 w-100">
+          {{#each split (get "Grades") "entries"}}
+            <div class="fam card m-1">
+              <div class="card-header text-center">{{key}}</div>
+              <div class="card-body d-flex flex-wrap">
+                {{#each split value "entries"}}
+                  <div class="kid d-flex flex-column border rounded px-1 pb-2 m-1" keys="{{../key}} {{key}}">
+                    <div class="border-bottom">{{key}}</div>
+                    <div class="{{sinceColor}} px-1 rounded">{{timeSince}}</div>
+                    <div>{{formatTime value "MM/DD/YYYY"}}</div>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+</template>

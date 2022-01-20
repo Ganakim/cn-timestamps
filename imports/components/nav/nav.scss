@@ -1,0 +1,17 @@
+#Nav{
+  .dojoDropItem{
+    white-space: nowrap;
+  }
+  .dojoDropItem:hover>div, #DojoDropdown:hover>div{
+    background-color: rgba(0,0,0,.1);
+  }
+  #NavMiniDropdown{
+    right: 100px;
+  }
+  .navLink{
+    width: 100px;
+  }
+  #LogOut{
+    width: 80px;
+  }
+}

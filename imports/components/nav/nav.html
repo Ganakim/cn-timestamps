@@ -1,0 +1,53 @@
+<template name="nav">
+  <div id="Nav" class="w-100 bg-dark d-flex align-items-center p-2 shadow">
+    <i id="BackBtn" class="fas fa-bars fa-2x c-pointer ms-1 me-4 text-light" dropdown="#NavMiniDropdown"></i>
+    <h2 class="ms-2 d-flex align-items-baseline text-light">
+      {{transform "c" (logic (logic (get "page.path") "==" "403") "?" "Access Denied" (logic (logic (get "page.path") "==" "404") "?" "Not Found" (get "page.path")))}}
+      {{#if currentUser}}
+        <div class="ms-3">-</div>
+      {{/if}}
+      <div class="d-flex position-relative align-items-end ms-2">
+        {{#if (logic (split currentUser.dojos "keys.length") ">" 1)}}
+          <div id="DojoDropdown" class="c-pointer position-relative p-2 rounded border-left border-dark" dropdown="#DojoPickDropdown">
+            {{search "Dojos" currentUser.dojo "location"}}
+            <div class="position-absolute t-0 l-0 r-0 b-0"></div>
+          </div>
+          <div id="DojoPickDropdown" class="position-absolute bg-dark border-secondary border-left border-right d-flex flex-column t-0" dropdown="false">
+            {{#each (split currentUser.dojos "keys")}}
+              <div class="position-relative dojoDropItem d-flex justify-content-center text-light pb-1 w-100 c-pointer p-2">
+                {{search "Dojos" this "location"}}
+                <div class="position-absolute t-0 r-0 l-0 b-0"></div>
+              </div>
+            {{/each}}
+          </div>
+        {{else}}
+          <div id="DojoDropdown" class="c-pointer position-relative p-2 rounded">
+            {{search "Dojos" currentUser.dojo "location"}}
+            <div class="position-absolute t-0 l-0 r-0 b-0"></div>
+          </div>
+        {{/if}}
+      </div>
+      <div id="NavMiniDropdown" class="position-absolute d-flex align-items-center bg-dark border-secondary ms-5 l-0 t-0 b-0" dropdown="false">
+        {{#each navLinks}}
+          <div class="navLink btn btn-dark mx-2">{{text}}</div>
+        {{/each}}
+      </div>
+    </h2>
+    <div class="ms-auto me-2 d-flex text-light align-items-center">
+      <!-- <i class="far fa-inbox fa-lg pt-2 ps-1 c-pointer position-relative">
+        <div class="position-absolute rounded-circle bg-warning p-1 t-0 l-0"></div>
+      </i> -->
+      {{#if get "pwdNeedsUpdate"}}
+        <div id="UpdatePassword" class="btn btn-warning me-2">
+          Your password needs to be updated. Click here to pick a new one.
+        </div>
+      {{/if}}
+      <div class="ms-4">
+        {{currentUser.username}}
+      </div>
+      <div id="Log{{#if currentUser}}Out{{else}}In{{/if}}" class="btn btn-dark border-white ms-4 px-2">
+        Log {{#if currentUser}}out{{else}}in{{/if}}
+      </div>
+    </div>
+  </div>
+</template>

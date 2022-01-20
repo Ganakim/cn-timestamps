@@ -1,0 +1,173 @@
+// Overrides
+
+[class*="overflow"]::-webkit-scrollbar{
+  display: none;
+}
+
+[class*="overflow"]{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+// Variables
+$nav-height: 8vh;
+$custom-directions: (
+  t: top,
+  l: left,
+  r: right,
+  b: bottom,
+);
+$custom-types: (
+  m: margin,
+  p: padding,
+  w: width,
+  h: height,
+);
+$enable-responsive-font-sizes: true;
+$custom-sizes: (
+  0: 0,
+  5: 5%,
+  10: 10%,
+  15: 15%,
+  20: 20%,
+  25: 25%,
+  30: 30%,
+  35: 35%,
+  40: 40%,
+  45: 45%,
+  50: 50%,
+  55: 55%,
+  60: 60%,
+  65: 65%,
+  70: 70%,
+  75: 75%,
+  80: 80%,
+  85: 85%,
+  90: 90%,
+  95: 95%,
+  100: 100%,
+  auto: auto
+);
+$custom-colors: (
+  "modal": rgba(100, 100, 100, .2)
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+@each $abbrev, $prop in $custom-directions {
+  @each $size, $length in $custom-sizes {
+    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+  }
+}
+@each $abbrev, $prop in $custom-types {
+  @each $size, $length in $custom-sizes {
+    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+  }
+}
+@each $abbrev, $prop in $custom-directions {
+  @each $size, $length in $custom-sizes {
+    .m#{$abbrev}-#{$size} { margin-#{$prop}: $length !important; }
+  }
+}
+@each $abbrev, $prop in $custom-directions {
+  @each $size, $length in $custom-sizes {
+    .p#{$abbrev}#{$abbrev}-#{$size} { padding-#{$prop}: $length !important; }
+  }
+}
+
+// Components
+@import '{}/imports/components/nav/nav.scss';
+@import '{}/imports/components/form/form.scss';
+@import '{}/imports/components/spinner/spinner.scss';
+// Pages
+@import '{}/imports/pages/home/home.scss';
+
+.text-none{
+  color:rgba(0,0,0,0);
+}
+.hidden{
+  display: none !important;
+}
+.invisible{
+  opacity: 0;
+}
+.c-pointer{
+  cursor: pointer;
+}
+.c-default{
+  cursor: default;
+}
+.t-0{
+  top:0;
+}
+.b-0{
+  bottom:0;
+}
+.l-0{
+  left:0;
+}
+.r-0{
+  right:0;
+}
+.f-1{
+  flex:1;
+}
+.tripleToggle{
+  width: 5em;
+  height: 2em;
+  i:first-child:hover{
+    @extend .btn-success;
+  }
+  i:last-child:hover{
+    @extend .btn-danger;
+  }
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+  #Nav{
+    z-index: 99;
+    position: absolute;
+    height: $nav-height;
+  }
+  // &>:not(#Nav){
+  //   position: absolute;
+  //   top: 0;
+  //   padding-top: $nav-height;
+  // }
+  #Modal{
+    z-index:100;
+  }
+}
+
+*[dropdown="false"]{
+  height: 0!important;
+  width: 0!important;
+  padding: 0!important;
+  margin: 0!important;
+  overflow: hidden!important;
+}
+
+[style*="--aspect-ratio"] > :first-child {
+  width: 100%;
+}
+[style*="--aspect-ratio"] > img {  
+  height: auto;
+} 
+@supports (--custom:property) {
+  [style*="--aspect-ratio"] {
+    position: relative;
+  }
+  [style*="--aspect-ratio"]::before {
+    content: "";
+    display: block;
+    padding-bottom: calc(100% / (var(--aspect-ratio)));
+  }  
+  [style*="--aspect-ratio"] > :first-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }  
+}
