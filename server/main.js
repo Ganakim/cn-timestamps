@@ -46,7 +46,7 @@ Meteor.methods({
         console.log(err)
       }
       browser.quit()
-      throw new Meteor.Error(err.message.join('\n').toLowerCase())
+      throw new Meteor.Error(err.message ? err.message.join('\n').toLowerCase() : JSON.stringify(err))
     }
   }
 })
